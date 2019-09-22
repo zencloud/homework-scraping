@@ -74,8 +74,28 @@ button {
     color: white;
     background-color: #01afd2;
     padding: 5px 10px 5px 10px;
+    max-width: max-content;
+    margin: 5px;
 }
 
 button:hover {
     cursor: pointer;
+}
+
+textarea {
+    width: 400px;
+    height: 50px;
+    font-style: 'Roboto', sans-serif;
+    border: 0;
+    background-color: #181a1b;
+    color: white;
+    margin: 5px;
+    margin-top: 20px;
+    font-size: 16px;
+    padding: 10px;
+}
+
+.saved-cell {
+    display: flex;
+    flex-direction: column;
 }

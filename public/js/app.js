@@ -27,12 +27,21 @@ function app_load_saved_articles() {
 
     $.getJSON("/saved", function (packageData) {
         packageData.forEach((articleData) => {
+        
+            let commentText = "";
+
+            if (typeof articleData.comment === "undefined") {
+                commentText = "Add your own comment";
+            } else {
+                commentText = articleData.comment.commentBody
+            }
+
             let myHTML = `
             <div class="article-container">
                 <div>
                     <p>${articleData.title}</p>
-                    <div>
-                        <textarea rows="4" cols="50" id="data-comment-${articleData._id}"></textarea>
+                    <div class="saved-cell">
+                        <textarea id="data-comment-${articleData._id}">${commentText}</textarea>
                         <button onclick="app_comment_save('${articleData._id}')">Comment</button>
                     </div>
                 </div>
