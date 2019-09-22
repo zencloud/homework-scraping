@@ -80,16 +80,25 @@ module.exports = function (app) {
             });
     });
 
-    app.get("/saved", function(req, res){
+    app.get("/saved", function (req, res) {
         db.Saved.find({})
-        .then((data) => {
-            res.json(data);
+        .then(function(savedArticles){
+            
+            let savedList = []
+            savedArticles.forEach((articleID) => {
+                savedList.push(articleID.savedid);
+            });
+
+            db.Article.find({}).where('_id').in(savedList).exec((error, articleData) => {
+                res.json(articleData);
+            });
         });
     });
+
     // Save Article ID
-    app.post("/save/:id", function(req, res){
-        db.Saved.create({savedid: req.params.id})
-        .then(res.send("Added!"));
+    app.post("/save/:id", function (req, res) {
+        db.Saved.create({ savedid: req.params.id })
+            .then(res.send("Added!"));
     });
 
     app.post("/articles/:id", function (req, res) {
