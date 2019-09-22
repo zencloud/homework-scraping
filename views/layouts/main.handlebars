@@ -7,17 +7,22 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"
         integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/css/reset.css">
     <link rel="stylesheet" href="/css/style.css">
     <title>Handlebars Sucks!</title>
 </head>
 
 <body>
-<div class="wrapper">
-    <div><button id="toggle-saved">Show Saved</button></div>
-
-    <div id="saved-list"></div>
-    <div id="article-list"></div>
-</div>
+    <div class="wrapper">
+        <div class="cell-header">
+            Saved Articles
+            <div><button id="toggle-saved">Show Saved</button></div>
+        </div>
+        <div id="saved-list"></div>
+        <hr>
+        <div class="cell-header">Scraped Articles</div>
+        <div id="article-list"></div>
+    </div>
     <script src="/js/app.js"></script>
 </body>
 

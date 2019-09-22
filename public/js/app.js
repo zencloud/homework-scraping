@@ -3,11 +3,15 @@
 $.getJSON("/articles", function (packageData) {
     packageData.forEach( (articleData) => {
         let myHTML = `
-            <div>
-                <p>${articleData.title}</p>
-                <button onclick="app_article_save('${articleData._id}')">Save</button>
-                <button>Comment</button>
-            </div>`;
+            <div class="article-container">
+                <div>
+                    <p>${articleData.title}</p>
+                </div>
+                <div>
+                    <button onclick="app_article_save('${articleData._id}')">Save</button>
+                </div>
+            </div>
+            <hr>`;
         $('#article-list').append(myHTML);
     });
 });
@@ -16,11 +20,16 @@ $.getJSON("/articles", function (packageData) {
 $.getJSON("/saved", function (packageData) {
     packageData.forEach( (articleData) => {
         let myHTML = `
-            <div>
-                <p>${articleData.title}</p>
-                <button onclick="app_article_save('${articleData._id}')">Delete</button>
-                <button>Comment</button> 
-            </div>`;
+            <div class="article-container">
+                <div>
+                    <p>${articleData.title}</p>
+                </div>
+                <div>
+                    <button onclick="app_article_save('${articleData._id}')">Delete</button>
+                    <button>Comment</button>
+                </div>
+            </div>
+            <hr>`;
         $('#saved-list').append(myHTML);
     });
 });
