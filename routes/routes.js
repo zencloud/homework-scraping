@@ -6,6 +6,7 @@ const axios = require("axios");
 const cheerio = require("cheerio");
 const db = require("../models");
 
+mongoose.set('useFindAndModify', true);
 
 module.exports = function (app) {
 
@@ -71,7 +72,7 @@ module.exports = function (app) {
 
     app.get("/articles/:id", function (req, res) {
         db.Article.findOne({ _id: req.params.id })
-            .populate("note")
+            .populate("comment")
             .then(function (dbArticle) {
                 res.json(dbArticle);
             })
@@ -89,7 +90,10 @@ module.exports = function (app) {
                 savedList.push(articleID.savedid);
             });
 
-            db.Article.find({}).where('_id').in(savedList).exec((error, articleData) => {
+            db.Article.find({}).where('_id')
+            .in(savedList)
+            .populate("comment")
+            .exec((error, articleData) => {
                 res.json(articleData);
             });
         });
@@ -101,10 +105,18 @@ module.exports = function (app) {
             .then(res.send("Added!"));
     });
 
-    app.post("/articles/:id", function (req, res) {
+    app.post("/unsave/:id", function(req, res) {
+        db.Saved.deleteOne({savedid: req.params.id})
+        .then (function(data){
+            res.json(data);
+        });
+    });
+
+    app.post("/comment/save/:id", function (req, res) {
+        console.log(req.body);
         db.Comment.create(req.body)
             .then(function (dbComment) {
-                return db.Article.findOneAndUpdate({ _id: req.params.id }, { note: dbComment._id }, { new: true });
+                return db.Article.findOneAndUpdate({ _id: req.params.id }, { comment: dbComment._id }, { new: true });
             })
             .then(function (dbArticle) {
                 res.json(dbArticle);
@@ -113,7 +125,5 @@ module.exports = function (app) {
                 res.json(err);
             });
     });
-
-
 }
 
