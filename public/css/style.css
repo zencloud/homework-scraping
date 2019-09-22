@@ -27,10 +27,23 @@ hr {
     display: flex;
     justify-content: space-between;
     padding: 20px;
+    border-radius: 10px 10px 0 0;
     font-size: 18px;
     font-weight: bold;
     color: white;
     background-color: #323a45;
+}
+
+.site-header {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    border-radius: 10px 10px 10px 10px;
+    font-size: 18px;
+    font-weight: bold;
+    color: white;
+    background-color: #f27835;
+    margin-bottom: 10px;
 }
 
 #saved-list {
